@@ -6,7 +6,7 @@ import pyarrow.csv as pv
 # For select brands
 # Full period data
 # --------------------------------------------------------------
-local_dir = r'J:/Dewey/Data/SafeGraph/Spend'
+local_dir = os.path.join(DATA_ROOT_FOLDER, 'SafeGraph/Spend')
 
 files = os.listdir(local_dir)
 # read the first file
@@ -35,7 +35,7 @@ for file in files:
 
 sg_spend_data = pd.concat(data_chunks, ignore_index=True)
 
-save_path = r'J:/Dewey/Data/SafeGraph/Spend_processed/sg_spend_sample.csv'
+save_path = os.path.join(DATA_ROOT_FOLDER, 'SafeGraph/Spend_processed/sg_spend_sample.csv')
 sg_spend_data.to_csv(save_path, index=False)
 
 # Reading --------------------------------------------------------------
