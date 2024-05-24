@@ -5,7 +5,7 @@ import pyarrow.csv as pv
 import pyarrow as pa
 import pyarrow.compute as pc
 
-local_dir = 'J:/Dewey/Data/SimilarWeb/Monthly'
+local_dir = os.path.join(DATA_ROOT_FOLDER, 'SimilarWeb/Monthly')
 
 process_raw_data = False
 
@@ -64,7 +64,7 @@ if process_raw_data:
     # Concatenate all the data_chunks
     similar_web_sub = pa.concat_tables(data_chunks)
 
-    save_path = r'J:/Dewey/Data/Similarweb_processed/similar_web_sub_select_domain_all_period.csv'
+    save_path = os.path.join(DATA_ROOT_FOLDER, 'Similarweb_processed/similar_web_sub_select_domain_all_period.csv')
     pv.write_csv(similar_web_sub, save_path)
 
 similarweb_traffic_sub = similar_web_sub.to_pandas()
