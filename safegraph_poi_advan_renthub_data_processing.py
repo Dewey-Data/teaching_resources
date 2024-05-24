@@ -11,7 +11,7 @@ import os
 # ----------------------------------------------------
 
 # Your local folder here...
-safegraph_folder = r"J:\Dewey\Data\SafeGraph\POI"
+safegraph_folder = os.path.join(DATA_ROOT_FOLDER, 'SafeGraph/POI')
 
 # List files in safegraph_folder
 files = os.listdir(safegraph_folder)
@@ -39,7 +39,8 @@ safegraph_poi_sub2.to_csv(r'./data/safegraph_poi_sub_CA_Los_Angeles.csv', index=
 # -------------------------------------------------
 
 # Your local folder here...
-advan_mp_folder = r'J:\Dewey\Data\Advan\MP_20240101'
+advan_mp_folder = os.path.join(DATA_ROOT_FOLDER, 'Advan/MP_20240101')
+
 files = os.listdir(advan_mp_folder)
 # Read all the files in the folder and filter only for
 # 'ISO_COUNTRY_CODE' == 'US') &
@@ -72,7 +73,7 @@ advan_mp_sub.to_csv('./data/advan_mp_sub_CA_Los_Angeles_2024_Jan.csv', index=Fal
 # -------------------------------------------
 
 # Your local folder here...
-renthub_folder = r'J:\Dewey\Data\RentHub\2023'
+renthub_folder = os.path.join(DATA_ROOT_FOLDER, 'RentHub/2023')
 
 # Read all the files in the folder and filter only for
 # 'STATE' == 'CA' &
