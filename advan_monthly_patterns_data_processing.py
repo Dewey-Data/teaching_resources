@@ -4,7 +4,7 @@ import time
 import pyarrow.csv as pv
 import pyarrow as pa
 
-local_dir = r'J:\Dewey\Data\Advan\MP_20240419'
+local_dir = os.path.join(DATA_ROOT_FOLDER, 'Advan/MP_20240419')
 
 process_raw_data = False
 if process_raw_data:
@@ -93,8 +93,7 @@ if process_raw_data:
     # # Use indices to sort the table
     # advan_mp_sample_data = advan_mp_sample_data.take(sort_indices)
 
-    # save_path = r'J:/Dewey/Data/Advan_processed/advan_mp_20240419_sample (banks, re brokerage, gas, retail).csv'
-    save_path = r'J:/Dewey/Data/Advan_processed/advan_mp_20240419_sample (Tesla).csv'
+    save_path = os.path.join(DATA_ROOT_FOLDER, 'Advan_processed/advan_mp_20240419_sample (Tesla).csv')
     pv.write_csv(advan_mp_sample_data, save_path)
 
     # Filter data for the selected brands
@@ -109,8 +108,8 @@ if process_raw_data:
 
     mask = pa.compute.is_in(advan_mp_sample_data['SAFEGRAPH_BRAND_IDS'], value_set=value_set)
     filtered_table = advan_mp_sample_data.filter(mask)
-    # save_path = r'J:/Dewey/Data/Advan_processed/advan_mp_20240419_sample (banks, re brokerage).csv'
-    save_path = r'J:/Dewey/Data/Advan_processed/advan_mp_20240419_sample (gas, retail).csv'
+
+    save_path = os.path.join(DATA_ROOT_FOLDER, 'Advan_processed/advan_mp_20240419_sample (gas, retail).csv')
     pv.write_csv(filtered_table, save_path)
 
 safegraph_poi_reserve_columns = ['PLACEKEY', 'PARENT_PLACEKEY', 'SAFEGRAPH_BRAND_IDS', 'LOCATION_NAME',
@@ -124,12 +123,13 @@ advan_mp_reserve_columns = safegraph_poi_reserve_columns +\
 
 
 read_options = pv.ReadOptions(block_size=32 * 1024 * 1024)
-advan_mp_bank_re_brokerage = pv.read_csv(r'J:/Dewey/Data/Advan_processed/advan_mp_20240419_sample (banks, re brokerage).csv', read_options = read_options)
+
+advan_mp_bank_re_brokerage = pv.read_csv(os.path.join(DATA_ROOT_FOLDER, 'Advan_processed/advan_mp_20240419_sample (banks, re brokerage).csv'), read_options = read_options)
 advan_mp_bank_re_brokerage_df = advan_mp_bank_re_brokerage.to_pandas()
 advan_mp_bank_re_brokerage_sub_df = advan_mp_bank_re_brokerage_df[advan_mp_reserve_columns]
 advan_mp_bank_re_brokerage_sub_df.to_csv(r'./data/advan_mp_sub_banks_re_brokerage_all_area_all_period.csv', index=False)
 
-advan_mp_gas_retail = pv.read_csv(r'J:/Dewey/Data/Advan_processed/advan_mp_20240419_sample (gas, retail).csv', read_options = read_options)
+advan_mp_gas_retail = pv.read_csv(os.path.join(DATA_ROOT_FOLDER, 'Advan_processed/advan_mp_20240419_sample (gas, retail).csv'), read_options = read_options)
 advan_mp_gas_retail_df = advan_mp_gas_retail.to_pandas()
 advan_mp_gas_retail_sub_df = advan_mp_gas_retail_df[advan_mp_reserve_columns]
 advan_mp_gas_retail_sub_df.to_csv(r'./data/advan_mp_sub_gas_retail_all_area_all_period.csv', index=False)
